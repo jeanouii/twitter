@@ -53,13 +53,13 @@
     <dependency>
       <groupId>com.tomitribe.tribestream</groupId>
       <artifactId>tribestream-wadlx-api</artifactId>
-      <version>0.51-SNAPSHOT</version>
+      <version>${tribestream.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.tomitribe.tribestream</groupId>
       <artifactId>tribestream-governance-api</artifactId>
-      <version>0.51-SNAPSHOT</version>
+      <version>${tribestream.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -84,6 +84,7 @@
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.compiler.source>1.7</maven.compiler.source>
+    <tribestream.version>0.53-SNAPSHOT</tribestream.version>
   </properties>
 
   <repositories>
