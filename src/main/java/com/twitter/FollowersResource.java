@@ -26,6 +26,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import java.util.Random;
 
 @Path("/followers")
 public class FollowersResource {
@@ -37,18 +39,65 @@ public class FollowersResource {
     @ApiVersion({"1.1"})
     @Tag({"Bulk Operations", "finding users"})
     @SeeAlso({@See(href="endpoint/Twitter/GET/friends/ids", value = "GET friends/ids"), @See(href="endpoint/Twitter/GET/followers/list", value = "GET followers/list"), @See(href="endpoint/Twitter/GET/friends/list", value = "GET friends/list")})
-    @ApplicationLimit(rate = @Rate(window = 15, unit = GovernanceUnit.MINUTES, limit = 15))
-    @UserLimit(rate = @Rate(window = 15, unit = GovernanceUnit.MINUTES, limit = 15))
+    @ApplicationLimit(rate = @Rate(window = 15, unit = GovernanceUnit.SECONDS, limit = 15))
+    @UserLimit(rate = @Rate(window = 15, unit = GovernanceUnit.SECONDS, limit = 15))
     @Description("Returns a cursored collection of user IDs for every user following the specified user.")
-    public UsersType getIds(@Description("The ID of the user for whom to return results for.")
+    public Response getIds(@Description("The ID of the user for whom to return results for.")
                             @QueryParam("user_id") final Integer user_id, @Description("The screen name of the user for whom to return results for.")
                             @QueryParam("screen_name") final String screen_name, @Description("Causes the list of connections to be broken into pages of no more than 5000 IDs at a time. The number of IDs returned is not guaranteed to be 5000 as suspended users are filtered out after connections are queried. If no cursor is provided, a value of <tt>-1</tt> will be assumed, which is the first \"page.\"<br /><br /> The response from the API will include a <tt>previous_cursor</tt> and <tt>next_cursor</tt> to allow paging back and forth. See <a href=\"https://dev.twitter.com/docs/misc/cursoring\">Using cursors to navigate collections</a> for more information.")
                             @QueryParam("cursor") final String cursor, @Description("Many programming environments will not consume our Tweet ids due to their size. Provide this option to have ids returned as strings instead. More about <a href=\"https://dev.twitter.com/docs/twitter-ids-json-and-snowflake\">Twitter IDs, JSON and Snowflake</a>.")
                             @QueryParam("stringify_ids") final Boolean stringify_ids,
-                            @Description("Specifies the number of IDs attempt retrieval of, up to a maximum of 5,000 per distinct request. The value of <tt>count</tt> is best thought of as a limit to the number of results to return. When using the count parameter with this method, it is wise to use a consistent count value across all requests to the same user's collection. Usage of this parameter is encouraged in environments where all 5,000 IDs constitutes too large of a response.")
+                           @Description("Specifies the number of IDs attempt retrieval of, up to a maximum of 5,000 per distinct request. The value of <tt>count</tt> is best thought of as a limit to the number of results to return. When using the count parameter with this method, it is wise to use a consistent count value across all requests to the same user's collection. Usage of this parameter is encouraged in environments where all 5,000 IDs constitutes too large of a response.")
                             @QueryParam("count") final Integer count) {
         //TODO: implement
-        return null;
+
+/*
+        UsersType usersType = new UsersType();
+        usersType.setId(123);
+        usersType.setName("Norm");
+        usersType.setDefaultProfile(true);
+        usersType.setFollowersCount(100);
+        usersType.setFriendsCount(83);
+
+        return usersType;
+  */
+
+        Random rand = new Random();
+        int  randomNumber = rand.nextInt(10) + 1;
+
+        System.out.println("Random generated: "+randomNumber);
+
+        Response.ResponseBuilder rb=null;
+
+        switch (randomNumber) {
+            case 0:
+                rb = Response.status(200); break;
+            case 1:
+                rb = Response.status(200); break;
+            case 2:
+                rb = Response.status(200); break;
+            case 3:
+                rb = Response.status(200); break;
+            case 4:
+                rb = Response.status(200); break;
+            case 5:
+                rb = Response.status(200); break;
+            case 6:
+                rb = Response.status(200); break;
+            case 7:
+                rb = Response.status(200); break;
+            case 8:
+                rb = Response.status(200); break;
+            case 9:
+                rb = Response.status(500); break;
+            case 10:
+                rb = Response.status(500); break;
+            default: rb = Response.status(500); break;
+        }
+
+
+        return rb.build();
+
     }
 
     @GET
