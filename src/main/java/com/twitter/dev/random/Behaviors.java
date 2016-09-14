@@ -10,26 +10,44 @@
 package com.twitter.dev.random;
 
 
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 public class Behaviors{
 
 
-    public  final Runnable SLEEP  ()  {
-            try {
-                System.out.println(" Sleeping 2 seconds zZZ zZZ zZZ ");
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        return null;
+    public static Response sleepOk() {
+        try {
+            // note we'd still want some variance in response time
+            System.out.println("EXECUTING FINE");
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Response.ok().build();
     }
 
-    public   Runnable GOOD_BEHAVIOR () {
-            try {
-                System.out.println(" Good Behavior :) ");
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
+    public static Response spike() {
+        try {
+            // note we'd still want some variance in response time
+            System.out.println("EXECUTING SPIKE zzZ zzZ  zzZ");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Response.ok().build();
     }
+
+    public static Response sortOfSlow() {
+        try {
+            // note we'd still want some variance in response time
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Response.ok().build();
+    }
+
 }

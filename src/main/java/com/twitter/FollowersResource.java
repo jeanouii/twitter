@@ -22,14 +22,14 @@ import com.tomitribe.wadlx.api.SeeAlso;
 import com.tomitribe.wadlx.api.Tag;
 import com.twitter.dev.api.UsersType;
 import com.twitter.dev.random.Behaviors;
-import com.twitter.dev.random.WeigthedRandomResults;
+import com.twitter.dev.random.WeightedRandomResult;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import java.util.Random;
+
 
 @Path("/followers")
 public class FollowersResource {
@@ -61,79 +61,23 @@ public class FollowersResource {
         usersTypeObj.setFollowersCount(100);
         usersTypeObj.setFriendsCount(83);
 
-  //      return usersType;
 
 
-//        Random rand = new Random();
-//        int  randomNumber = rand.nextInt(10) + 1;
-//
-//        System.out.println("Random generated: "+randomNumber);
-//
-//        Response.ResponseBuilder rb=null;
-//
-//        switch (randomNumber) {
-//            case 0:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 1:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 2:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 3:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 4:
-//               // rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 5:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 6:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 7:
-//               // rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 8:
-//                //rb.entity(usersTypeObj);
-//                rb = Response.status(200); break;
-//            case 9:
-//                rb = Response.status(500); break;
-//            case 10:
-//                rb = Response.status(500); break;
-//            default: rb = Response.status(500); break;
-//        }
-//
-//
-//        return rb.build();
 
-
-//        Response.ResponseBuilder rb=null;
-//        final WeigthedRandomResults<Integer> statusCodes = new WeigthedRandomResults<Integer>(
-//                200,
-//                200,
-//                200,
-//                200,
-//                500
-//        );
-//
-//        //this needs to be commented out
-//        int x = statusCodes.get();
-//        System.out.println("The Random Status Code Was: "+x);
-//
-//        rb = Response.status(x);
-//        return rb.build();
-
-        Behaviors behaviors = new Behaviors();
-
-        final WeigthedRandomResults<Runnable> behavior = new WeigthedRandomResults<Runnable>(
-                behaviors.SLEEP(),
-                behaviors.GOOD_BEHAVIOR()
-        );
         Response.ResponseBuilder rb=null;
-        rb = Response.status(200);
+        final WeightedRandomResult<Integer> statusCodes = new WeightedRandomResult<>(
+                200,
+                200,
+                200,
+                200,
+                500
+        );
+
+
+        int x = statusCodes.get();
+        //System.out.println("The Random Status Code Was: "+x);
+
+        rb = Response.status(x);
         return rb.build();
     }
 
@@ -147,16 +91,25 @@ public class FollowersResource {
     @ApplicationLimit(rate = @Rate(window = 15, unit = GovernanceUnit.MINUTES, limit = 30))
     @UserLimit(rate = @Rate(window = 15, unit = GovernanceUnit.MINUTES, limit = 15))
     @Description("Returns a cursored collection of user objects for users following the specified user.")
-    public UsersType getList(@Description("The ID of the user for whom to return results for.")
+    public Response getList(@Description("The ID of the user for whom to return results for.")
                              @QueryParam("user_id") final Integer user_id, @Description("The screen name of the user for whom to return results for.")
                              @QueryParam("screen_name") final String screen_name, @Description("Causes the results to be broken into pages. If no cursor is provided, a value of <tt>-1</tt> will be assumed, which is the first \"page.\"<br /><br /> The response from the API will include a <tt>previous_cursor</tt> and <tt>next_cursor</tt> to allow paging back and forth. See <a href=\"https://dev.twitter.com/docs/misc/cursoring\">Using cursors to navigate collections</a> for more information.")
                              @QueryParam("cursor") final String cursor, @Description("The number of users to return per page, up to a maximum of 200. Defaults to 20.")
                              @QueryParam("count") final Integer count,
-                             @Description("When set to either <tt>true</tt>, <tt>t</tt> or <tt>1</tt> statuses will not be included in the returned user objects.")
+                                            @Description("When set to either <tt>true</tt>, <tt>t</tt> or <tt>1</tt> statuses will not be included in the returned user objects.")
                              @QueryParam("skip_status") final Boolean skip_status, @Description("The user object <tt>entities</tt> node will be disincluded when set to <tt>false</tt>.")
                              @QueryParam("include_user_entities") final Boolean include_user_entities) {
-        //TODO: implement
-        return null;
+
+
+       //Currently not working as expected
+        final WeightedRandomResult<Response> behaviorObj = new WeightedRandomResult<Response>(
+                Behaviors.sleepOk(),
+                Behaviors.spike(),
+                Behaviors.spike(),
+                Behaviors.spike()
+        );
+        Response response= behaviorObj.get();
+        return response;
     }
 
 }

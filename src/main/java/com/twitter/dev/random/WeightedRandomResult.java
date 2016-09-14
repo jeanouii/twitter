@@ -7,23 +7,24 @@
  * of its trade secrets, irrespective of what has been deposited with the
  * U.S. Copyright Office.
  */
-
 package com.twitter.dev.random;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-import java.util.*;
-
-
-public class WeigthedRandomResults<T>{
+public class WeightedRandomResult<T> {
     final Random random = new Random();
 
     final List<T> statusCodes = new ArrayList<>();
 
-    public WeigthedRandomResults(final T... statusCodes) {
+    public WeightedRandomResult(final T... statusCodes) {
         Collections.addAll(this.statusCodes, statusCodes);
     }
 
-    public WeigthedRandomResults(final Collection<T> statusCodes) {
+    public WeightedRandomResult(final Collection<T> statusCodes) {
         this.statusCodes.addAll(statusCodes);
     }
 
