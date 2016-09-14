@@ -21,6 +21,8 @@ import com.tomitribe.wadlx.api.See;
 import com.tomitribe.wadlx.api.SeeAlso;
 import com.tomitribe.wadlx.api.Tag;
 import com.twitter.dev.api.UsersType;
+import com.twitter.dev.random.Behaviors;
+import com.twitter.dev.random.WeigthedRandomResults;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -51,53 +53,88 @@ public class FollowersResource {
                             @QueryParam("count") final Integer count) {
         //TODO: implement
 
-/*
-        UsersType usersType = new UsersType();
-        usersType.setId(123);
-        usersType.setName("Norm");
-        usersType.setDefaultProfile(true);
-        usersType.setFollowersCount(100);
-        usersType.setFriendsCount(83);
 
-        return usersType;
-  */
+        UsersType usersTypeObj = new UsersType();
+        usersTypeObj.setId(123);
+        usersTypeObj.setName("Norm");
+        usersTypeObj.setDefaultProfile(true);
+        usersTypeObj.setFollowersCount(100);
+        usersTypeObj.setFriendsCount(83);
 
-        Random rand = new Random();
-        int  randomNumber = rand.nextInt(10) + 1;
+  //      return usersType;
 
-        System.out.println("Random generated: "+randomNumber);
 
+//        Random rand = new Random();
+//        int  randomNumber = rand.nextInt(10) + 1;
+//
+//        System.out.println("Random generated: "+randomNumber);
+//
+//        Response.ResponseBuilder rb=null;
+//
+//        switch (randomNumber) {
+//            case 0:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 1:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 2:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 3:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 4:
+//               // rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 5:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 6:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 7:
+//               // rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 8:
+//                //rb.entity(usersTypeObj);
+//                rb = Response.status(200); break;
+//            case 9:
+//                rb = Response.status(500); break;
+//            case 10:
+//                rb = Response.status(500); break;
+//            default: rb = Response.status(500); break;
+//        }
+//
+//
+//        return rb.build();
+
+
+//        Response.ResponseBuilder rb=null;
+//        final WeigthedRandomResults<Integer> statusCodes = new WeigthedRandomResults<Integer>(
+//                200,
+//                200,
+//                200,
+//                200,
+//                500
+//        );
+//
+//        //this needs to be commented out
+//        int x = statusCodes.get();
+//        System.out.println("The Random Status Code Was: "+x);
+//
+//        rb = Response.status(x);
+//        return rb.build();
+
+        Behaviors behaviors = new Behaviors();
+
+        final WeigthedRandomResults<Runnable> behavior = new WeigthedRandomResults<Runnable>(
+                behaviors.SLEEP(),
+                behaviors.GOOD_BEHAVIOR()
+        );
         Response.ResponseBuilder rb=null;
-
-        switch (randomNumber) {
-            case 0:
-                rb = Response.status(200); break;
-            case 1:
-                rb = Response.status(200); break;
-            case 2:
-                rb = Response.status(200); break;
-            case 3:
-                rb = Response.status(200); break;
-            case 4:
-                rb = Response.status(200); break;
-            case 5:
-                rb = Response.status(200); break;
-            case 6:
-                rb = Response.status(200); break;
-            case 7:
-                rb = Response.status(200); break;
-            case 8:
-                rb = Response.status(200); break;
-            case 9:
-                rb = Response.status(500); break;
-            case 10:
-                rb = Response.status(500); break;
-            default: rb = Response.status(500); break;
-        }
-
-
+        rb = Response.status(200);
         return rb.build();
-
     }
 
     @GET
